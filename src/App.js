@@ -1,9 +1,12 @@
+import React from 'react';
+import { Ready } from './components/Ready';
+
 
 export const App = ()=> {
   return (
-    <div>
-      <h1>Proyecto</h1>
-    </div>
+    <>
+      <Ready/>
+    </>
   );
 }
 
