@@ -25,10 +25,10 @@ export const Home = ()=>{
 
   return (
     <div className="container">
-      <section>      
+      <section >      
         <h2>Rick and Morty</h2>
-      </section>
-      <section>     
+      </section> 
+      <section className="row row-cols-4">
         { 
           characters ?
             characters.map(({id, image, name})=>              
@@ -45,3 +45,6 @@ export const Home = ()=>{
     </div>
   )
 }
+
+
+
