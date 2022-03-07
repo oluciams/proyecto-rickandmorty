@@ -7,6 +7,7 @@ const axios = require('axios');
 export const Home = ()=>{
 
   const [characters, setCharacters] = useState(false);
+  
 
   const fetchData = async()=>{   
     try {
@@ -26,7 +27,13 @@ export const Home = ()=>{
   return (
     <div className="container">
       <section >      
-        <h2>Rick and Morty</h2>
+        <h2>Rick and Morty</h2>                
+        <div>
+          <form className="d-flex">
+            <input className="form-control-md me-2" type="search" placeholder="Search character"/>
+            <button className="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>     
       </section> 
       <section className="row row-cols-4">
         { 
