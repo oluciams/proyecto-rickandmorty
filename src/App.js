@@ -1,11 +1,11 @@
 import React from 'react';
-import { Ready } from './components/Ready';
+import {Home} from './components/Home';
 
 
 export const App = ()=> {
   return (
     <>
-      <Ready/>
+      <Home/>    
     </>
   );
 }

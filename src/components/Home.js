@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getCharacterApi } from '../utils/api';
+import {ListImage} from './ListImage';
+
 const axios = require('axios');
 
-export const Ready = ()=>{
+export const Home = ()=>{
 
   const [characters, setCharacters] = useState(false);
 
@@ -25,17 +27,21 @@ export const Ready = ()=>{
     <div className="container">
       <section>      
         <h2>Rick and Morty</h2>
-        <br/>
+      </section>
+      <section>     
         { 
           characters ?
-            characters.map((el)=>(
-              <li key={el.id}>{el.name}</li>
-            ))
-            : 
-             <p>Loading</p>
-        } 
-      </section> 
+            characters.map(({id, image, name})=>              
+              <ListImage
+                key={id}
+                image={image}
+                nameCharacter={name}
+              />
+            )
+          : 
+            <p>Loading</p>
+        }
+      </section>
     </div>
   )
-
 }
