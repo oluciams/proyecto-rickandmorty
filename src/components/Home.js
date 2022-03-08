@@ -8,14 +8,21 @@ export const Home = ()=>{
 
   const [characters, setCharacters] = useState(false);
   const [searchCharacter, setSearchCharacter] = useState('');
+  const [next, setNext] = useState('');
 
 
-  const fetchData = async()=>{   
+  const fetchData = async()=>{      
     try {
-      const {data} = await getCharacterApi.get('/character')  
-      setCharacters(data.results)
-      console.log(data.info.next)
-      console.log(data.info.prev)
+      if(!next){
+        const {data} = await getCharacterApi.get('/character')  
+          setCharacters(data.results)
+          setNext(data.info.next)
+        } else{
+          const {data} = await axios.get(next) 
+          setCharacters(data.results)
+          setNext(data.info.next)
+          console.log(next) 
+        }   
     } catch (error) {
       console.error(error)      
     } 
@@ -24,8 +31,7 @@ export const Home = ()=>{
   const handleSearchCharacter = (e)=>{
     let search1 = e.target.value  
     setSearchCharacter(search1)
-  }
-
+  } 
   
   useEffect(() => {
     fetchData()
@@ -72,7 +78,7 @@ export const Home = ()=>{
             </svg>
             Prev
           </button>     
-          <button type="button" className="btn btn-outline-dark fw-bold">
+          <button type="button" className="btn btn-outline-dark fw-bold" onClick={()=>fetchData()}>
             Next
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-arrow-right" viewBox="0 0 16 16">
               <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -83,3 +89,14 @@ export const Home = ()=>{
     </div>
   )
 }
+
+// const fetchData = async()=>{   
+//   try {      
+//       const {data} = await getCharacterApi.get('/character')  
+//       setCharacters(data.results)
+//       setNext(data.info.next)
+//       console.log(next)  
+//   } catch (error) {
+//     console.error(error)      
+//   } 
+// }
