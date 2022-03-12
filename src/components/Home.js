@@ -11,26 +11,27 @@ export const Home = ()=>{
   const [pageNext, setPageNext] = useState('');
   const [pagePrev, setPagePrev] = useState(null);
 
-
+  const pagination = (data)=>{
+    setCharacters(data.results)
+    setPageNext(data.info.next)
+    setPagePrev(data.info.prev)  
+  }
+  
   const fetchData = async(actionButton)=>{ 
-        try {
-      console.log(actionButton)
+    try {
+
       if(!actionButton){
-        const {data} = await getCharacterApi.get('/character')  
-          setCharacters(data.results)
-          setPageNext(data.info.next)
-          setPagePrev(data.info.prev) 
-        } else if (actionButton === 'next'){  
-          const {data} = await axios.get(pageNext)        
-          setCharacters(data.results)  
-          setPageNext(data.info.next)          
-          setPagePrev(data.info.prev) 
-        }else if (actionButton === 'prev') {
-          const {data} = await axios.get(pagePrev)         
-          setCharacters(data.results) 
-          setPagePrev(data.info.prev)  
-          setPageNext(data.info.next)
-        } 
+        const {data} = await getCharacterApi.get('/character')
+          pagination(data);
+          
+      } else if (actionButton === 'next'){ 
+          const {data} = await axios.get(pageNext)
+            pagination(data); 
+          
+      }else if (actionButton === 'prev') {
+          const {data} = await axios.get(pagePrev)
+            pagination(data)         
+      } 
     } catch (error) {
       console.error(error)      
     } 
@@ -40,6 +41,7 @@ export const Home = ()=>{
     let search1 = e.target.value  
     setSearchCharacter(search1)
   } 
+
   
   useEffect(() => {
     fetchData()
@@ -97,31 +99,3 @@ export const Home = ()=>{
     </div>
   )
 }
-
-
-// const fetchData = async()=>{      
-//   try {
-//     if(!next){
-//       const {data} = await getCharacterApi.get('/character')  
-//         setCharacters(data.results)
-//         setNext(data.info.next)
-//       } else{
-//         const {data} = await axios.get(next) 
-//         setCharacters(data.results)
-//         setNext(data.info.next) 
-//       }   
-//   } catch (error) {
-//     console.error(error)      
-//   } 
-// }
-
-// const fetchData = async()=>{   
-//   try {      
-//       const {data} = await getCharacterApi.get('/character')  
-//       setCharacters(data.results)
-//       setNext(data.info.next)
-//       console.log(next)  
-//   } catch (error) {
-//     console.error(error)      
-//   } 
-// }
