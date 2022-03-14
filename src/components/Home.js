@@ -47,9 +47,8 @@ export const Home = ()=>{
   const handleSearchCharacter = (e)=>{
     let search1 = e.target.value  
     setSearchCharacter(search1)
-  } 
-
-  
+  }
+   
   useEffect(() => {
     fetchData()
   }, []);
